@@ -1,0 +1,66 @@
+name: verify
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qutrit-eaqecc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: qutrit-eaqecc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy
+      - name: 14 seed codes (Hermitian self-orthogonal, exact distance)
+        run: python check_seeds.py seeds.magma
+      - name: 16 degenerate codes (exhaustive symplectic check)
+        run: python check_degenerate.py
+      - name: "[[14,3,8;5]]_3 stabilizer matrix"
+        run: python check_eaqecc.py code_14_3_8_5.json
+
+  kings-entropy-a247413:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: kings-entropy-a247413
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mpdecimal
+        run: |
+          if ! sudo apt-get install -y libmpdec-dev; then
+            curl -sSL https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-4.0.0.tar.gz | tar xz
+            (cd mpdecimal-4.0.0 && ./configure && make -j2 && sudo make install && sudo ldconfig)
+          fi
+      - name: Build
+        run: cc -O2 compute_a247413.c -lmpdec -o compute_a247413
+      - name: Run
+        run: ./compute_a247413 | tee output.txt
+      - name: Check the 26 digits
+        run: |
+          prefix=1.3426439511246012978517301
+          for m in 18 20 22 24; do
+            v=$(grep "m_max=$m:" output.txt | awk '{print $NF}')
+            echo "m=$m  $v"
+            case "$v" in
+              $prefix*) ;;
+              *) echo "m=$m does not start with $prefix"; exit 1 ;;
+            esac
+          done
+          {
+            echo "## A247413"
+            echo '```'
+            cat output.txt
+            echo '```'
+            echo "All of m = 18, 20, 22, 24 agree on the 26 digits $prefix"
+          } >> "$GITHUB_STEP_SUMMARY"
