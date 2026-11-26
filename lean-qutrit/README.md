@@ -62,3 +62,5 @@ The last Lean command prints the axioms of all three final declarations even on 
 4. Build from the lockfile, inspect the final declarations' axiom dependencies and rerun the independent computation. Record the limits of both checks and the status of the original question.
 
 **Next tractable step.** Test length 14 with the two signed copies associated to the third monic irreducible quadratic, t²−t+2. The candidate parameters are `[[14,2,11;8]]₃`. The extra two sites preserve the Gram form and their simultaneous vanishing uses two degrees of the cubic. A length-14 kernel theorem would extend the result to another cell. Least entanglement for arbitrary lengths and the nonadditive case remain unresolved here.
+
+The [quantum MDS follow-up](Qmds/README.md) treats two earlier questions over larger finite fields and uses this same pinned proof environment.
