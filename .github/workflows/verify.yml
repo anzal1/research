@@ -88,9 +88,21 @@ jobs:
             grep -Fx "'Qutrit.$theorem' depends on axioms: [propext, Classical.choice, Quot.sound]" axioms.txt
           done
           lake env lean Qmds.lean | tee qmds-axioms.txt
-          for theorem in AffinePuncture.all_affine_lengths TraceObstruction.monomial_has_root TraceObstruction.reciprocal_binomial_has_root; do
+          theorems=(
+            AffinePuncture.all_affine_lengths
+            TraceObstruction.monomial_has_root
+            TraceObstruction.reciprocal_binomial_has_root
+            Qmds.Order25.witness_exists
+            Qmds.Order25.ball_vilar_family
+            Qmds.Order25.ball_vilar_1024
+            Qmds.FullLength.full_length_family
+            Qmds.FullLength.full_length_1024
+          )
+          for theorem in "${theorems[@]}"; do
             grep -Fx "'$theorem' depends on axioms: [propext, Classical.choice, Quot.sound]" qmds-axioms.txt
           done
+      - name: Evaluate the order-25 witness over the entire field
+        run: python3 -B Qmds/check_order25.py
       - name: Replay the two-term finite-field search
         run: |
           c++ -O3 -std=c++17 Qmds/search.cpp -o "$RUNNER_TEMP/qmds-search"

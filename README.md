@@ -12,6 +12,8 @@ Every result here was verified independently before it was published, and each f
 
 [Two logical qutrits at length 12](lean-qutrit/) gives a reproducible candidate survey, an explicit ternary additive stabilizer and a Lean proof of its optimal distance at six shared pairs.
 
+[Full-length Reed–Solomon codes](lean-qutrit/Qmds/) gives a Lean-checked solution to an infinite family of even-exponent cases posed by Ball and Vilar, beginning at q = 1024.
+
 ## Negative results
 
 | Search | Result |

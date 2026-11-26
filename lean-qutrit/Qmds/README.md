@@ -1,5 +1,27 @@
 # Two finite-field questions from quantum MDS coding
 
+## A full-length construction for infinitely many even exponents
+
+**Result.** Let h be any positive integer congruent to 10, 30, 70 or 90 modulo 100, let q = 2ʰ and K = GF(q²). There exists a Hermitian self-orthogonal extended generalized Reed–Solomon code of length q²+1 and dimension q−1 over K. The first case is q = 1024. Ball and Vilar posed the remaining even-exponent cases in their 2021 preprint, published in 2022. Vilar still listed them as open in the conclusion of his 2025 doctoral thesis. The literature check of November 27, 2026 identified no prior construction for these residue classes. Priority awaits independent expert review. [Ball–Vilar, Sections V and VII](https://arxiv.org/abs/2106.10180) · [Vilar, Chapter 7, p. 106](https://upcommons.upc.edu/server/api/core/bitstreams/3f9b47cc-9a24-4fd3-90a3-dd30e610a94c/content)
+
+**The witness.** Set d = (q+1)/5 and choose any e of multiplicative order 25 in K. Such an e exists because 25 divides q+1. The following equation has no solution in K.
+
+```text
+H(x) = 1 + x^(q+1) + e x^d + (e x^d)^q = 0
+```
+
+For q = 1024, d = 205. In the basis K = GF(2)[T]/(T²⁰ + T³ + 1), one coefficient is e = T^41943, encoded as 0xc2073 with bit i representing Tⁱ. The independent Python program verifies the full multiplicative cycle of T, checks the order of e, and evaluates H at every one of the 1,048,576 field elements. [Order-25 proof](Order25.lean) · [Exhaustive checker](check_order25.py)
+
+**Why the construction works.** The exponent d collapses the norm-one direction of a putative root to a fifth root of unity. For nonzero x, write x = uy with u^(q+1) = 1 and y in GF(q). One can take y = (x^(q+1))^(q/2). Set z = yᵈ and a = euᵈ. Then a²⁵ = 1 and a⁵ = e⁵ has order five. If H(x) were zero, t = a+a⁻¹ would satisfy zt = z⁵+1. The fifth Dickson polynomial gives D(t) = t⁵+t³+t = a⁵+a⁻⁵, hence D(t)²+D(t)+1 = 0.
+
+Eliminating t leaves a degree-50 binary polynomial. Write M = Z⁵+1 and B = M⁵+M³Z²+MZ⁴. The obstruction is P = B²+BZ⁵+Z¹⁰. A certificate of fifty successive squarings modulo P proves that every root satisfies z^(2⁵⁰) = z. A Bézout identity proves that no root satisfies z^(2¹⁰) = z. But z lies in GF(2ʰ) and gcd(h,50) = 10, so both constraints cannot hold. The value at x = 0 is one. The kernel checks all polynomial identities, including the certificate arithmetic. [Binary polynomial arithmetic](BinaryCertificate.lean) · [Certificate and family theorem](Order25.lean)
+
+**From the witness to the code.** At every affine point x use the nonzero column multiplier H(x)^(q/2), whose norm is H(x). Evaluate degree-at-most-(q−2) polynomials at all q² points, then append their degree-(q−2) coefficient as the coordinate at infinity. Lean proves that any q−1 coordinates determine the message and that the Hermitian inner product vanishes for every pair of encoded messages. In the Gram calculation the affine sum for the two highest-degree rows equals −1. The coordinate at infinity contributes the required +1. [Encoder and full-length theorems](FullLength.lean)
+
+At q = 1024 this gives a classical [1,048,577, 1,023, 1,047,555] code over GF(1,048,576). The published Hermitian stabilizer construction gives a quantum MDS code with parameters `[[1,048,577, 1,046,531, 1,024]]₁₀₂₄`. The formal proof covers the classical code and polynomial witness. The quantum parameters use the stabilizer construction and the quantum Singleton bound. [Ball–Vilar, Section II](https://arxiv.org/abs/2106.10180) · [Grassl–Rötteler](https://arxiv.org/abs/1502.05267)
+
+**Remaining question.** The construction covers four residue classes of even exponents. Existence for all even h ≥ 8 remains unresolved here. The first missing case h = 8 has q+1 = 257 prime, and the next section proves that every admissible one-term choice of g fails there. Testing g(x) = a xᵏ + b x²ᵏ for 1 ≤ k ≤ 127 is a finite next step at q = 256.
+
 ## Full length at q = 256
 
 Ball and Vilar identified an outstanding case of a question already studied by Grassl and Rötteler in 2015. Does there exist a length-65,537 Hermitian self-orthogonal generalized Reed–Solomon code of dimension 255 over the field of 65,536 elements? Section VII of Ball–Vilar singles out even exponents h ≥ 8 in q = 2ʰ. Their criterion asks for coefficients of a polynomial g of degree at most 255 and a base-field constant c such that the following function has no zero anywhere in the quadratic extension K of F = GF(256). A constant term of g can be absorbed into c. [Ball–Vilar, Theorem 3.2 and Section VII](https://arxiv.org/abs/2106.10180) · [Grassl–Rötteler, Section V](https://arxiv.org/abs/1502.05267)
@@ -34,8 +56,9 @@ From `lean-qutrit/` use the existing Lean toolchain and dependency lockfile.
 lake exe cache get $(awk '/^import Mathlib/{print $2}' Qutrit/Basic.lean Qmds/*.lean)
 lake build
 lake env lean Qmds.lean
+python3 -B Qmds/check_order25.py
 c++ -std=c++17 -O3 Qmds/search.cpp -o /tmp/qmds-search
 /tmp/qmds-search
 ```
 
-All three final Lean theorems depend on `[propext, Classical.choice, Quot.sound]`. The expected search output is `16581120 normalized candidates tested; each has a root`. A next tractable experiment is to test the nonreciprocal families whose exponents are k and 2k for 1 ≤ k ≤ 127, retaining a direct full-field evaluation for every proposed root-free witness.
+The final Lean declarations audited in `Qmds.lean` depend on `[propext, Classical.choice, Quot.sound]`. The q = 1024 checker reports `q=1024, e=0xc2073, order=25, 1048576 field elements checked, zero roots`. The q = 256 search reports `16581120 normalized candidates tested; each has a root`.
