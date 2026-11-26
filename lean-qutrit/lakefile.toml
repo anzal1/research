@@ -1,12 +1,15 @@
 name = "qutrit"
 version = "0.1.0"
-defaultTargets = ["Qutrit", "Qmds"]
+defaultTargets = ["Qutrit", "Qmds", "Shannon"]
 
 [[lean_lib]]
 name = "Qutrit"
 
 [[lean_lib]]
 name = "Qmds"
+
+[[lean_lib]]
+name = "Shannon"
 
 [[require]]
 name = "mathlib"

@@ -14,6 +14,8 @@ Every result here was verified independently before it was published, and each f
 
 [Full-length Reed–Solomon codes](lean-qutrit/Qmds/) gives a Lean-checked solution to an infinite family of even-exponent cases posed by Ball and Vilar, beginning at q = 1024.
 
+[Five-symbol codes on the seven-cycle](shannon-seven/) proves that reassigning one coordinate in every word of the published 367-word code cannot make room for a 368th word. Lean and an independent Python checker cover all 12,005 choices of coordinate and extra projection.
+
 ## Negative results
 
 | Search | Result |
