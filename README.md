@@ -1,31 +1,24 @@
 # Research
 
-Findings from small open problems, each with the code to check it yourself.
-Every result here was verified independently before it was published, and each folder says exactly what is claimed and what is not.
+Reproducible mathematical results from coding theory, combinatorics and number theory. The research harness runs three short searches from the repository root.
 
-| Finding | Result | Status | Check |
-|---|---|---|---|
-| [King's graph entropy, OEIS A247413](kings-entropy-a247413/) | 26 digits of the constant (OEIS had 18) | In OEIS editor review | `compute_a247413.c`, a few minutes |
-| [Qutrit entanglement-assisted codes](qutrit-eaqecc/) | 50 better entries in Grassl's qutrit table | `[[14,3,8;5]]_3` approved in [V3R1T4S #331](https://github.com/elder-plinius/V3R1T4S/pull/331); all 50 sent to Grassl | `check_seeds.py`, `check_degenerate.py`, seconds |
+```sh
+python3 -B harness/run.py search
+```
 
-## Lean research
+To regenerate the coding certificate and audit the pinned Lean theorems, use the full replay instructions. [Harness](harness/) · [Recorded outputs and timings](harness/results.json)
 
-[Run the three-problem research harness](harness/) to search a quantum-coding construction, a seven-symbol communication code and a sixth-power identity. Each run records its scope, outcome and timing.
+## Results
 
-[Two logical qutrits at length 12](lean-qutrit/) gives a reproducible candidate survey, an explicit ternary additive stabilizer and a Lean proof of its optimal distance at six shared pairs.
+| Problem | Result | Evidence |
+|---|---|---|
+| Full-length Hermitian Reed–Solomon codes | Two constructions cover eight disjoint classes of even exponents. Their first alphabet sizes are q = 1,024 and q = 16,384. Historical priority awaits independent review. | Lean proofs of the classical encoders and independent first-case checks. [Order 25](lean-qutrit/Qmds/) · [Order 29](lean-qutrit/Qmds/ORDER29.md) |
+| Five-symbol codes on the seven-cycle | Reassigning one coordinate of every word in the published 367-word seed cannot accommodate a 368th word. The search for a different 368-word code remains open. | Lean and Python cover all 12,005 choices of coordinate and added projection. The two-coordinate solver results are reported separately. [Proof and searches](shannon-seven/) |
+| Five positive sixth powers | Three copies of one sixth power plus two of another cannot equal a sixth power. Bounded searches found no identity through 100,000,000 for two repeated pairs, or through 1,000,000 for the specified one-pair family. | Lean proves the three-and-two obstruction. The larger exclusions use exact integer searches. [Statements and bounds](euler-sixth/) |
+| Two logical qutrits at length 12 | The optimal additive distance with six shared pairs is 9. | Explicit stabilizer, matching upper bound in Lean and independent symplectic enumeration. [Proof and checker](lean-qutrit/) |
+| Qutrit entanglement-assisted codes | Codes for 50 cells improved on Grassl’s qutrit table as recorded on October 17, 2026. | Checks for 14 pure-code seeds, 16 degenerate codes and an explicit stabilizer. [Codes and submission history](qutrit-eaqecc/) |
+| King’s graph entropy, OEIS A247413 | Four transfer-matrix truncations agree on 26 digits of the estimated constant. | Numerical convergence and a separate corner-transfer-matrix comparison. [Calculation and expected output](kings-entropy-a247413/) |
 
-[Full-length Reed–Solomon codes](lean-qutrit/Qmds/) gives a Lean-checked solution to an infinite family of even-exponent cases posed by Ball and Vilar, beginning at q = 1024.
+A separate search over GF(4) tested 202 codes against the qubit table and found no improvement. [Search repository](https://github.com/anzal1/eaqecc-search)
 
-[Five-symbol codes on the seven-cycle](shannon-seven/) proves that reassigning one coordinate in every word of the published 367-word code cannot make room for a 368th word. Lean and an independent Python checker cover all 12,005 choices of coordinate and extra projection.
-
-[Five sixth powers with two repeated pairs](euler-sixth/) proves in Lean that three copies of one positive sixth power and two copies of another can never sum to a sixth power. For `a^6 + 2b^6 + 2c^6 = z^6`, the repeated bases must be divisible by 42 and the right-hand base must satisfy `z ≥ 117649`.
-
-## Negative results
-
-| Search | Result |
-|---|---|
-| Same code search over GF(4) against the qubit table ([eaqecc-search](https://github.com/anzal1/eaqecc-search)) | Nothing. 202 codes found, none beat a listed bound. The qubit table is the most studied one, so this was the expected outcome. |
-
-CI in this repo re-runs every check on each push.
-
-Code is MIT licensed. Anzal Abidi.
+The verification workflow runs on pushes to `main` and supports manual runs. [CI checks](.github/workflows/verify.yml) · [MIT license](LICENSE)

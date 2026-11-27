@@ -48,13 +48,16 @@ Lean 4.24.0 built `Shannon.Seven.no_single_coordinate_extension`. Its `#print ax
 
 The constructive SAT search retains three coordinates of every old word. It appends a new projection, and frees both remaining coordinates for each old word whose projection is within cyclic distance r of that target in each of the three retained coordinates. Every candidate model goes through a separate direct check of the full five-symbol words. [Search](search_two_coordinates.py)
 
-With radius one, the solver returned UNSAT for all 3,430 combinations of coordinate pair and target projection. With radius two, it returned UNSAT for 1,849 and reached its conflict limit for 1,581. These are solver observations. The cutoffs leave the corresponding instances undecided. The broader 368-word question permits all five coordinates to change.
+The radius-one search returned UNSAT for all 3,430 coordinate-pair and projection combinations. At radius two, **1,945 of 3,430 instances returned UNSAT and 1,485 remain undecided**. These are CaDiCaL results for the specified neighborhood. The one-coordinate theorem above has a separate Lean proof.
 
-The initial radius-two run stopped on 14 projections for coordinates three and four and on 18 projections for coordinates four and five. At a budget of 20,000 conflicts, CaDiCaL returned UNSAT on all 343 projections for each pair. Across the ten coordinate pairs, this brings the total to 1,881 radius-two solver exclusions and leaves 1,549 instances undecided. The Lean theorem above covers the one-coordinate problem.
+At the initial budget of 300 conflicts, 1,849 radius-two instances returned UNSAT. Five coordinate pairs were then rerun at 20,000 conflicts. The most recent runs used pairs (1,5) and (2,3), raising the total from 1,902 by 43. The CSV uses one-based coordinate numbers. Empty columns indicate that a pair has only been run at the initial budget. [Per-pair results](radius-two-results.csv)
 
-Reproduce the follow-ups with `python -B shannon-seven/search_two_coordinates.py --axes 3 4 --radius-two-budget 20000 --workers 1`, then repeat with `--axes 4 5`. The subsequent run freed coordinates one and two at the same 20,000-conflict budget. All 343 radius-two projections returned UNSAT, including the previous 21 cutoffs. The running totals are now 1,902 solver exclusions and 1,528 undecided. To reproduce this step, use the same command with `--axes 1 2`.
+To reproduce the counts from the repository root, install `python-sat==1.9.dev25` in a Python environment. The first command runs all ten pairs with one worker. The second command repeats a higher-budget run. Replace its axes with any pair with populated 20,000-conflict columns in the CSV. Solver versions can affect the cutoff counts.
 
-To repeat the constructive search, install `python-sat==1.9.dev25` in a Python environment and run `python -B shannon-seven/search_two_coordinates.py --workers 1` from the repository root. The search tries 1,200 conflicts per radius-one instance and 300 per radius-two instance. CaDiCaL’s model order and implementation can affect the cutoff counts.
+```sh
+python -B shannon-seven/search_two_coordinates.py --workers 1
+python -B shannon-seven/search_two_coordinates.py --axes 1 5 --radius-two-budget 20000 --workers 1
+```
 
 ## Replacing several whole words
 

@@ -1,12 +1,12 @@
-# Five sixth powers, with two repeated pairs
+# Five sixth powers with repeated summands
 
 Can five positive sixth powers sum to a sixth power? Lander, Parkin and Selfridge discussed the question in 1967. The Equal Sums of Powers archive listed the one-versus-five case as open in October 2026. One exact positive solution would settle existence. Euler’s original conjecture across all exponents was already refuted in 1966 by the identity `27^5 + 84^5 + 110^5 + 133^5 = 144^5`. The pinned Lean project also checks that historical identity. [1966 paper](https://www.ams.org/bull/1966-72-06/S0002-9904-1966-11654-3/S0002-9904-1966-11654-3.pdf) · [1967 survey](https://doi.org/10.1090/S0025-5718-1967-0222008-0) · [Current archive](https://powersums.jorisperrenet.com/)
 
 We searched the family
 
-\[
+$$
 a^6+2b^6+2c^6=z^6,\qquad a,b,c,z\in\mathbb Z_{>0}.
-\]
+$$
 
 It permits equal values among the three bases and counts each summand with its multiplicity. No priority or search record is claimed for this restricted family.
 
@@ -41,19 +41,9 @@ lake build
 lake env lean Euler.lean
 ```
 
-The general five-summand question permits five distinct bases. A next search could release one repeated pair. The remaining repeated base still has to be divisible by 42, by the same residue count.
-
-## Erdős problems with finite witnesses
-
-Erdős and Szekeres conjectured in 1935 that any set of `2^(n−2)+1` points in the plane with no three collinear contains `n` points in convex position. Seven vertices is the first open case. A list of 33 points with no three collinear and no seven in convex position would disprove the conjecture. For integer coordinates, all the checks can use exact determinant signs. The classical construction reaches 32 points. A December 2025 study excludes several restricted classes of 33-point candidates, and a November 2026 preprint improves the asymptotic upper bound. The seventh case remains a separate search target. [Erdős Problem 107](https://www.erdosproblems.com/107) · [33-point case study](https://arxiv.org/abs/2512.24061) · [November 2026 upper bound](https://arxiv.org/abs/2611.29344)
-
-Schroeder’s September 2026 preprint reports `33 ≤ ES(7) ≤ 81`. Damásdi, Dong, Scheucher and Zeng prove that adding any point in general position to the classical 32-point construction produces a convex heptagon. A search starting from that construction must therefore change at least one of the original points. [Reported 81-point bound](https://doi.org/10.5281/zenodo.22842891) · [Saturation theorem](https://www.sciencedirect.com/science/article/pii/S0195669825001258)
-
-Erdős and Selfridge asked whether finitely many congruence classes with distinct odd moduli greater than one can cover every integer. A proposed list can be checked over one period, the least common multiple of its moduli. A covering would confirm Erdős’s expectation and disprove Selfridge’s. A July 2026 preprint reports a kernel-checked exclusion of all periods through 10,000. The catalogue lists the full question as open. [Erdős Problem 7](https://www.erdosproblems.com/7) · [Mian and Siddique](https://arxiv.org/abs/2607.25628)
-
 ## One repeated pair
 
-The expanded search tests
+With one repeated pair, the same residue count forces the repeated base to be divisible by 42. The general five-summand question also permits five distinct bases. The expanded search tests
 
 ```text
 a^6 + (42u)^6 + (42v)^6 + 2(42w)^6 = z^6
@@ -68,3 +58,11 @@ python3 -B euler-sixth/check_one_pair.py 500000
 python3 -B euler-sixth/search_one_pair.py 1000000
 python3 -B euler-sixth/check_one_pair.py 1000000
 ```
+
+## Erdős problems with finite witnesses
+
+Erdős and Szekeres conjectured in 1935 that any set of `2^(n−2)+1` points in the plane with no three collinear contains `n` points in convex position. Seven vertices is the first open case. A list of 33 points with no three collinear and no seven in convex position would disprove the conjecture. For integer coordinates, all the checks can use exact determinant signs. The classical construction reaches 32 points. A December 2025 study excludes several restricted classes of 33-point candidates, and a November 2026 preprint improves the asymptotic upper bound. The seventh case remains a separate search target. [Erdős Problem 107](https://www.erdosproblems.com/107) · [33-point case study](https://arxiv.org/abs/2512.24061) · [November 2026 upper bound](https://arxiv.org/abs/2611.29344)
+
+Schroeder’s September 2026 preprint reports `33 ≤ ES(7) ≤ 81`. Damásdi, Dong, Scheucher and Zeng prove that adding any point in general position to the classical 32-point construction produces a convex heptagon. A search starting from that construction must therefore change at least one of the original points. [Reported 81-point bound](https://doi.org/10.5281/zenodo.22842891) · [Saturation theorem](https://www.sciencedirect.com/science/article/pii/S0195669825001258)
+
+Erdős and Selfridge asked whether finitely many congruence classes with distinct odd moduli greater than one can cover every integer. A proposed list can be checked over one period, the least common multiple of its moduli. A covering would confirm Erdős’s expectation and disprove Selfridge’s. A July 2026 preprint reports a kernel-checked exclusion of all periods through 10,000. The catalogue lists the full question as open. [Erdős Problem 7](https://www.erdosproblems.com/7) · [Mian and Siddique](https://arxiv.org/abs/2607.25628)

@@ -28,10 +28,10 @@ Same harness, two more hunts. On Shannon’s seven-symbol code we reproduced a k
 
 ## Reply 5
 
-Three short searches took about six seconds together. Designing them and proving the answer took longer. You can rerun the search for 208, the independent check and the Lean proof. Know an earlier construction for q = 16,384? I’d love the citation.
+Three short searches took about six seconds together. Designing them and proving the answer took longer. You can rerun the search for 208, the independent check and the Lean proof. Know an earlier construction for q = 16,384? I’d love the citation. https://github.com/anzal1/research/blob/4180e3ff0978047e8a4dc58f877ff6206f31aee2/lean-qutrit/Qmds/Order29.lean
 
 ## Evidence and image description
 
 The graphic shows 208 settings in numerical order, with one dot per setting. The independent checker enumerates all radii for five directions and finds a failure for every setting from 1 through 207. Setting 208 has zero. Each setting encodes a scale in a specified trace basis. The first quantum-code alphabet has 16,384 levels. A code position is a carrier, and the loss guarantee counts carriers at known positions. The kernel theorem is the Hermitian self-orthogonal classical MDS construction. The quantum erasure guarantee follows from the published stabilizer construction. The five-deletion extension has a separate timing from the short three-search benchmark.
 
-Historical priority remains open. The sources checked give a dated open question and yielded no earlier matching solution. The research branch holds the proof locally. Use a public immutable proof link in the evidence reply once a release exists. [Mathematical statement and literature audit](../ORDER29.md) · [Runner and timings](../../../harness/README.md) · [Vilar’s thesis, p. 106](https://tesisenred.net/bitstream/handle/10803/694186/TRVA1de1.pdf?isAllowed=y&sequence=1#page=107)
+Historical priority remains open. The sources checked give a dated open question and yielded no earlier matching solution. [Mathematical statement and literature audit](../ORDER29.md) · [Runner and timings](../../../harness/README.md) · [Vilar’s thesis, p. 106](https://tesisenred.net/bitstream/handle/10803/694186/TRVA1de1.pdf?isAllowed=y&sequence=1#page=107)

@@ -22,7 +22,7 @@ Eliminating t leaves a degree-50 binary polynomial. Write M = Z⁵+1 and B = M�
 
 At q = 1024 this gives a classical [1,048,577, 1,023, 1,047,555] code over GF(1,048,576). The published Hermitian stabilizer construction gives a quantum MDS code with parameters `[[1,048,577, 1,046,531, 1,024]]₁₀₂₄`. The formal proof covers the classical code and polynomial witness. The quantum parameters use the stabilizer construction and the quantum Singleton bound. [Ball–Vilar, Section II](https://arxiv.org/abs/2106.10180) · [Grassl–Rötteler](https://arxiv.org/abs/1502.05267)
 
-**Remaining question.** The construction covers four residue classes of even exponents. Existence for all even h ≥ 8 remains unresolved here. The first missing case h = 8 has q+1 = 257 prime, and the next section proves that every admissible one-term choice of g fails there. Testing g(x) = a xᵏ + b x²ᵏ for 1 ≤ k ≤ 127 is a finite next step at q = 256.
+**Remaining question.** The order-25 construction covers four residue classes modulo 100. The order-29 construction covers four more modulo 140. Existence for all even h ≥ 8 remains unresolved here. The first missing case h = 8 has q+1 = 257 prime, and the next section proves that every admissible one-term choice of g fails there. Testing g(x) = a xᵏ + b x²ᵏ for 1 ≤ k ≤ 127 is a finite next step at q = 256.
 
 ## Full length at q = 256
 
@@ -56,9 +56,11 @@ From `lean-qutrit/` use the existing Lean toolchain and dependency lockfile.
 
 ```sh
 lake exe cache get $(awk '/^import Mathlib/{print $2}' Qutrit/Basic.lean Qmds/*.lean)
-lake build
+lake build Qmds
 lake env lean Qmds.lean
 python3 -B Qmds/check_order25.py
+python3 -B Qmds/check_order29.py
+python3 -B Qmds/search_rays.py --check-file Qmds/Order29Data.lean
 c++ -std=c++17 -O3 Qmds/search.cpp -o /tmp/qmds-search
 /tmp/qmds-search
 ```

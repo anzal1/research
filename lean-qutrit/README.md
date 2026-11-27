@@ -43,7 +43,7 @@ Install elan and Python 3. The toolchain file selects Lean 4.24.0. The Lake mani
 
 ```sh
 lake exe cache get $(awk '/^import Mathlib/{print $2}' Qutrit/Basic.lean)
-lake build
+lake build Qutrit
 lake env lean Qutrit.lean
 python3 -B check.py
 ```
