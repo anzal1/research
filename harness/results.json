@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-27",
+  "processor": "Apple M5 Max",
+  "search_only": {
+    "python": "3.9.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "runs": [
+      {
+        "problem": "quantum",
+        "phase": "search",
+        "status": "polynomial candidate",
+        "seconds": 0.504,
+        "output": "order 29: 208 scales searched; first zero-free radial polynomial at 0xd0; degree 25; Frobenius period divides 70"
+      },
+      {
+        "problem": "shannon",
+        "phase": "search",
+        "status": "bounded exclusion",
+        "seconds": 1.576,
+        "output": "Connected deletion sets tested by size: [8, 244, 1984, 12387]\nNo improving exchange in the tested neighborhood."
+      },
+      {
+        "problem": "euler",
+        "phase": "search",
+        "status": "bounded exclusion",
+        "seconds": 3.722,
+        "output": "one repeated pair, coprime singleton, z <= 500000: 711 eligible pairs, 2329 complementary searches, witness=None"
+      }
+    ]
+  },
+  "complete_replay_with_cached_lean_build": {
+    "python": "3.9.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "runs": [
+      {
+        "problem": "quantum",
+        "phase": "search",
+        "status": "polynomial candidate",
+        "seconds": 1.291,
+        "output": "order 29: 208 scales searched from 1; first zero-free radial polynomial at 0xd0; degree 25; 70-step test passes"
+      },
+      {
+        "problem": "quantum",
+        "phase": "verify",
+        "status": "Lean-checked family and independently enumerated first case",
+        "steps": [
+          {
+            "seconds": 1.324,
+            "output": "order 29: 208 scales searched from 1; first zero-free radial polynomial at 0xd0; degree 25; 70-step test passes"
+          },
+          {
+            "seconds": 1.187,
+            "output": "GF(2^28): 16383 radii, 5 angles, zero roots; scale-one control hits 9 radii; H(0)=1"
+          },
+          {
+            "seconds": 7.174,
+            "output": "⚠ [1770/1834] Replayed Qmds.RayCertificate\nwarning: Qmds/RayCertificate.lean:51:0: automatically included section variable(s) unused in theorem `Qmds.RayCertificate.norm_sound`:\n  [CharP K 2]\nconsider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:\n  omit [CharP K 2] in theorem ...\n\nNote: This linter can be disabled with `set_option linter.unusedSectionVars false`\n⚠ [1827/1834] Replayed Qmds.Order25\nwarning: Qmds/Order25.lean:185:0: automatically included section variable(s) unused in theorem `Qmds.Order25.exists_order_on_circle`:\n  [CharP K 2]\nconsider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:\n  omit [CharP K 2] in theorem ...\n\nNote: This linter can be disabled with `set_option linter.unusedSectionVars false`\nℹ [1833/1834] Replayed Qmds\ninfo: Qmds.lean:5:0: 'AffinePuncture.all_affine_lengths' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:6:0: 'TraceObstruction.monomial_has_root' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:7:0: 'TraceObstruction.reciprocal_binomial_has_root' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:9:0: 'Qmds.Order25.witness_exists' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:10:0: 'Qmds.Order25.ball_vilar_family' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:11:0: 'Qmds.Order25.ball_vilar_1024' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:12:0: 'Qmds.FullLength.full_length_family' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:13:0: 'Qmds.FullLength.full_length_1024' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:15:0: 'Qmds.Order29.full_length_family' depends on axioms: [propext, Classical.choice, Quot.sound]\ninfo: Qmds.lean:16:0: 'Qmds.Order29.full_length_16384' depends on axioms: [propext, Classical.choice, Quot.sound]\nBuild completed successfully (1834 jobs)."
+          },
+          {
+            "seconds": 26.265,
+            "output": "'AffinePuncture.all_affine_lengths' depends on axioms: [propext, Classical.choice, Quot.sound]\n'TraceObstruction.monomial_has_root' depends on axioms: [propext, Classical.choice, Quot.sound]\n'TraceObstruction.reciprocal_binomial_has_root' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.Order25.witness_exists' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.Order25.ball_vilar_family' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.Order25.ball_vilar_1024' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.FullLength.full_length_family' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.FullLength.full_length_1024' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.Order29.full_length_family' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Qmds.Order29.full_length_16384' depends on axioms: [propext, Classical.choice, Quot.sound]"
+          }
+        ],
+        "seconds": 35.951
+      },
+      {
+        "problem": "shannon",
+        "phase": "search",
+        "status": "bounded exclusion",
+        "seconds": 3.344,
+        "output": "Connected deletion sets tested by size: [8, 244, 1984, 12387]\nNo improving exchange in the tested neighborhood."
+      },
+      {
+        "problem": "shannon",
+        "phase": "verify",
+        "status": "known finite exclusion reproduced on the published seed",
+        "steps": [
+          {
+            "seconds": 3.803,
+            "output": "Connected deletion sets tested by size: [8, 244, 1984, 12387]\nNo improving exchange in the tested neighborhood."
+          }
+        ],
+        "seconds": 3.804
+      },
+      {
+        "problem": "euler",
+        "phase": "search",
+        "status": "bounded exclusion",
+        "seconds": 9.465,
+        "output": "one repeated pair, coprime singleton, z <= 500000: 711 eligible pairs, 2329 complementary searches, witness=None"
+      },
+      {
+        "problem": "euler",
+        "phase": "verify",
+        "status": "finite exclusion cross-checked by direct lookup",
+        "steps": [
+          {
+            "seconds": 14.986,
+            "output": "direct lookup through 500000: 711 eligible pairs, 2329 complementary searches, witness=None"
+          }
+        ],
+        "seconds": 14.986
+      }
+    ]
+  },
+  "initial_lean_build": {
+    "certificate_module": "Qmds.Order29Data",
+    "certificate_supervised_wall_seconds": 1525.8,
+    "certificate_supervised_cpu_seconds": 906.4,
+    "family_module": "Qmds.Order29",
+    "family_build_seconds_reported_by_lake": 32,
+    "full_project_jobs": 1874
+  },
+  "extended_runs": {
+    "shannon_five_deletions": {
+      "connected_sets_by_size": [
+        8,
+        244,
+        1984,
+        12387,
+        87291
+      ],
+      "improving_exchange": false,
+      "wall_seconds": 32.4
+    },
+    "shannon_two_coordinates": {
+      "axes_one_based": [
+        1,
+        2
+      ],
+      "radius": 2,
+      "unsat": 343,
+      "cutoffs": 0,
+      "conflict_budget": 20000,
+      "total_run_wall_seconds": 39.3
+    },
+    "euler_one_pair": {
+      "right_hand_base_limit": 1000000,
+      "eligible_pairs": 2806,
+      "complementary_tests": 19699,
+      "witness": null,
+      "independent_lookup_agreed": true,
+      "combined_wall_seconds": 117.2
+    }
+  }
+}

@@ -2,40 +2,36 @@
 
 ## Opening post
 
-Page 106 of Ricard Vilar’s PhD thesis leaves a quantum coding question open.
+I gave my dot three math problems. On the quantum one, a single bad input out of 268,435,456 would wreck the answer.
 
-For one case, my dot found the coefficient 0xc2073.
+The first 207 settings all broke. Setting 208 held.
 
-One zero would kill the construction. We checked all 1,048,576 inputs. Zero roots.
+Then came the surprise. We could prove the same trick works at infinitely many sizes. 🧵
 
-Lean checked the recipe for infinitely many sizes.
+Attach the [208-settings graphic](../../../harness/setting-208.png).
 
 ## Reply 1
 
-Those five hex digits are a setting for the encoder. Ball and Vilar needed a formula that never hits zero. At q = 1,024, ours passes that test everywhere. The attached card gives the exact formula so you can try to break it yourself. https://arxiv.org/abs/2106.10180
+What’s the prize? Imagine sending a quantum message in 268,435,457 pieces. Any 16,383 can vanish. If you know which ones went missing, the message can still be recovered. The math gives a design that reaches the limit for how much information it carries.
 
 ## Reply 2
 
-What do you get? A design for sending quantum information across 1,048,577 carriers. Any 1,023 can go missing and the message survives if the receiver knows which ones vanished. For the amount of information it carries, that’s the best guarantee physics allows.
+Ball and Vilar left a family of sizes open in 2021. It appears again in Vilar’s 2025 thesis. Our first size here is 16,384. Lean checked the classical code behind the quantum design for four infinite groups of sizes. Other sizes remain open. https://arxiv.org/abs/2106.10180
 
 ## Reply 3
 
-Lean checked the classical code used to build the quantum one. The theorem covers q = 2^h for h = 10, 30, 70 or 90 modulo 100. Other even exponents remain open in the literature we checked. If you know an earlier construction with these parameters, I’d like to read it.
+Why did the search take half a second? We found a way to sort those 268 million inputs by radius and direction. There were only five directions to worry about. Setting 1 failed at nine radii. Setting 208 failed at zero. A second program checked the count a different way.
 
-## Image alt text
+## Reply 4
 
-**Proof card for the opening post.** Vilar's 2025 thesis lists an open existence question. For the q = 1,024 case, the coefficient is 0xc2073 in the specified binary field basis. The card gives the polynomial, the field and the exhaustive check: 1,048,576 inputs, zero roots. Lean verifies the code construction for four infinite classes of exponents.
+Same harness, two more hunts. On Shannon’s seven-symbol code we reproduced a known dead end. Swapping up to five words still leaves you stuck at 367. On the sixth-power puzzle we searched one family through a million and found no identity. Both big questions are still open.
 
-**Optional introductory diagrams.** The eraser puzzle shows how two dots determine a straight line. The quantum-message illustration shows flagged gaps at known locations.
+## Reply 5
 
-## Evidence for the author
+Three short searches took about six seconds together. Designing them and proving the answer took longer. You can rerun the search for 208, the independent check and the Lean proof. Know an earlier construction for q = 16,384? I’d love the citation.
 
-For the opening, use the coefficient image. The literal integer encodes a field element in the basis given on the card. The infinite theorem chooses an order-25 element at each size. The five digits identify the concrete first example only. The proof and checker are in the local research branch. The linked Ball–Vilar paper is the source of the question. [Thesis, p. 106](https://upcommons.upc.edu/server/api/core/bitstreams/3f9b47cc-9a24-4fd3-90a3-dd30e610a94c/content#page=107) · [Construction](../README.md) · [First-case checker](../check_order25.py)
+## Evidence and image description
 
-The straight line is a toy example. In the classical code, the message is a list of 1,023 coefficients. Each numbered clue is a scaled value of its polynomial, except for one special clue that gives the top coefficient. The receiver knows the clue numbers and scales. Any 1,023 intact clues uniquely determine the coefficient list. [Encoder and recovery theorem](../FullLength.lean)
+The graphic shows 208 settings in numerical order, with one dot per setting. The independent checker enumerates all radii for five directions and finds a failure for every setting from 1 through 207. Setting 208 has zero. Each setting encodes a scale in a specified trace basis. The first quantum-code alphabet has 16,384 levels. A code position is a carrier, and the loss guarantee counts carriers at known positions. The kernel theorem is the Hermitian self-orthogonal classical MDS construction. The quantum erasure guarantee follows from the published stabilizer construction. The five-deletion extension has a separate timing from the short three-search benchmark.
 
-A perfect spare copy of an arbitrary unknown quantum state is impossible. The quantum code distributes the information across many systems. It is a mathematical design for handling flagged losses. [Original no-cloning paper](https://doi.org/10.1038/299802a0)
-
-Lean proves the classical encoder’s recovery guarantee and Hermitian self-orthogonality. The quantum parameters follow from the published Hermitian stabilizer construction. The quantum distance is 1,024. A code of that distance corrects 1,023 erasures at known locations, and this code meets the quantum Singleton bound. [Formal theorem](../FullLength.lean) · [Independent first-case check](../check_order25.py) · [Ball and Vilar, sections II and VII](https://arxiv.org/abs/2106.10180) · [Quantum Singleton bound and erasures](https://arxiv.org/abs/2010.07902)
-
-Vilar listed the remaining even exponents in his 2025 thesis, chapter 7, p. 106. Our search identified no earlier construction covering these exact four classes. Independent confirmation of priority is pending. [Thesis](https://upcommons.upc.edu/server/api/core/bitstreams/3f9b47cc-9a24-4fd3-90a3-dd30e610a94c/content#page=107) · [Dated literature review](../../STATUS.md)
+Historical priority remains open. The sources checked give a dated open question and yielded no earlier matching solution. The research branch holds the proof locally. Use a public immutable proof link in the evidence reply once a release exists. [Mathematical statement and literature audit](../ORDER29.md) · [Runner and timings](../../../harness/README.md) · [Vilar’s thesis, p. 106](https://tesisenred.net/bitstream/handle/10803/694186/TRVA1de1.pdf?isAllowed=y&sequence=1#page=107)

@@ -10,9 +10,13 @@ The priority question is whether a prior proof constructs a Hermitian self-ortho
 
 I found no earlier valid construction for q = 1024 or the four residue classes in the materials checked. This establishes documented open status at the cited dates. Historical priority remains unconfirmed. On the research branch, the pinned Lean build verified the classical family theorem and its MDS information-set property, and the independent program again found zero roots at all 1,048,576 inputs for q = 1024. The full even-exponent question remains open in the literature reviewed. [Theorem and reproduction](Qmds/README.md)
 
+The subsequent [order-29 result and its priority review](Qmds/ORDER29.md) treat q = 16,384 and four disjoint exponent classes modulo 140. The exact first case has an independent finite-field replay.
+
 ## An older open problem from Claude Shannon’s zero-error theory
 
 Seven symbols lie on a circle. Two symbols can be confused when they coincide or are neighbors. Let M(m) be the largest number of length-m words such that every pair differs in at least one coordinate by cyclic distance at least two. Determine Θ(C₇) = sup over m ≥ 1 of M(m)^(1/m). Shannon introduced zero-error capacity in 1956. Lovász solved the five-cycle in 1979 and obtained the seven-cycle upper bound 7 cos(π/7)/(1+cos(π/7)) = 3.31766720… . Tandon’s August 2026 preprint reports a lower bound of 3.25883262… and identifies the exact seven-cycle capacity as open. [Shannon](https://doi.org/10.1109/TIT.1956.1056798) · [Lovász](https://doi.org/10.1109/TIT.1979.1055985) · [Tandon](https://arxiv.org/abs/2608.30273)
+
+A September 2026 preprint reports a slightly stronger capacity lower bound, 3.258834362237710794…, from a 560-coordinate construction. The 368-word five-coordinate target would improve both reported bounds. [September research record](https://aixiv.online/abs/2609.03058)
 
 **Verified baseline.** I read the 367 five-symbol words from the appendix of Polak and Schrijver’s paper and checked all 67,161 unordered pairs. Zero pairs were confusable. The closed neighborhoods of these words cover all 7⁵ = 16,807 possible words, so this particular code cannot be enlarged by appending one word. Whether a different five-symbol code has 368 words is a finite research target. Such a witness would give Θ(C₇) ≥ 368^(1/5) = 3.25963943…, above the 2026 lower bound. [Polak and Schrijver, appendix](https://arxiv.org/pdf/1808.07438)
 

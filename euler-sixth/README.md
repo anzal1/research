@@ -50,3 +50,21 @@ Erdős and Szekeres conjectured in 1935 that any set of `2^(n−2)+1` points in 
 Schroeder’s September 2026 preprint reports `33 ≤ ES(7) ≤ 81`. Damásdi, Dong, Scheucher and Zeng prove that adding any point in general position to the classical 32-point construction produces a convex heptagon. A search starting from that construction must therefore change at least one of the original points. [Reported 81-point bound](https://doi.org/10.5281/zenodo.22842891) · [Saturation theorem](https://www.sciencedirect.com/science/article/pii/S0195669825001258)
 
 Erdős and Selfridge asked whether finitely many congruence classes with distinct odd moduli greater than one can cover every integer. A proposed list can be checked over one period, the least common multiple of its moduli. A covering would confirm Erdős’s expectation and disprove Selfridge’s. A July 2026 preprint reports a kernel-checked exclusion of all periods through 10,000. The catalogue lists the full question as open. [Erdős Problem 7](https://www.erdosproblems.com/7) · [Mian and Siddique](https://arxiv.org/abs/2607.25628)
+
+## One repeated pair
+
+The expanded search tests
+
+```text
+a^6 + (42u)^6 + (42v)^6 + 2(42w)^6 = z^6
+1 ≤ a < z ≤ 500000, u,v,w ≥ 1, gcd(a,42) = gcd(z,42) = 1.
+```
+
+Here the singleton carries every exceptional residue at 2, 3 and 7. General five-term solutions could distribute those residues differently. The search groups a and z by sixth power modulo 42⁶ and enumerates w. After modular filters on the remaining sum of two powers, 711 eligible (a,z) pairs give 2,329 complementary tests and zero identities. An independent pass sorts all residues then looks up complementary powers directly. Both passes use exact integers. The extended run through z = 1,000,000 gave 2,806 eligible pairs and 19,699 complementary tests. Both implementations again found no identity. The combined extended search and direct check took 117.2 s on the recorded machine. These bounds are computational results on the displayed family. The earlier Lean statements address different multiplicities.
+
+```sh
+python3 -B euler-sixth/search_one_pair.py 500000
+python3 -B euler-sixth/check_one_pair.py 500000
+python3 -B euler-sixth/search_one_pair.py 1000000
+python3 -B euler-sixth/check_one_pair.py 1000000
+```

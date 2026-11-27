@@ -10,6 +10,8 @@ Every result here was verified independently before it was published, and each f
 
 ## Lean research
 
+[Run the three-problem research harness](harness/) to search a quantum-coding construction, a seven-symbol communication code and a sixth-power identity. Each run records its scope, outcome and timing.
+
 [Two logical qutrits at length 12](lean-qutrit/) gives a reproducible candidate survey, an explicit ternary additive stabilizer and a Lean proof of its optimal distance at six shared pairs.
 
 [Full-length Reed–Solomon codes](lean-qutrit/Qmds/) gives a Lean-checked solution to an infinite family of even-exponent cases posed by Ball and Vilar, beginning at q = 1024.

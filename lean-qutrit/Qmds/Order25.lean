@@ -112,17 +112,18 @@ private theorem angular {a b : K} (hab : a*b=1) (ha : a^25=1) (hn : a^5 ≠ 1) :
 
 omit [CharP K 2] in
 /-- Fixed by two Frobenius powers implies fixed by their gcd power. -/
-private theorem fixed_gcd {z : K} (hz : z ≠ 0) {h : ℕ}
-    (hh : z^(2^h : ℕ)=z) (h50 : z^(2^50 : ℕ)=z) (hg : h.gcd 50 = 10) :
-    z^(2^10 : ℕ) = z := by
+theorem fixed_gcd {z : K} (hz : z ≠ 0) {h period intersection : ℕ}
+    (hh : z^(2^h : ℕ)=z) (hperiod : z^(2^period : ℕ)=z) (hg : h.gcd period = intersection) :
+    z^(2^intersection : ℕ) = z := by
   have pred (m : ℕ) (hm : z^(2^m : ℕ)=z) : orderOf z ∣ 2^m-1 := by
     apply orderOf_dvd_iff_pow_eq_one.mpr
     apply mul_right_cancel₀ hz
     rw [← pow_succ, Nat.sub_add_cancel (Nat.one_le_pow m 2 (by decide)), hm, one_mul]
-  have hgcd := Nat.dvd_gcd (pred h hh) (pred 50 h50)
+  have hgcd := Nat.dvd_gcd (pred h hh) (pred period hperiod)
   rw [Nat.pow_sub_one_gcd_pow_sub_one,hg] at hgcd
   have he := orderOf_dvd_iff_pow_eq_one.mp hgcd
-  rw [show (2^10 : ℕ) = (2^10-1)+1 by decide, pow_succ,he,one_mul]
+  rw [show (2^intersection : ℕ) = (2^intersection-1)+1 by
+    have := Nat.one_le_pow intersection 2 (by decide); omega, pow_succ,he,one_mul]
 
 /-- Uniform Ball–Vilar witness for the admissible exponents. -/
 theorem no_roots [Fintype K] (h q d : ℕ) (hq : q = 2^h)
@@ -181,11 +182,8 @@ theorem no_roots [Fintype K] (h q d : ℕ) (hq : q = 2^h)
   obtain ⟨h50,h10⟩ := certificate z (obstruction_vanishes ht (angular hab ha hn))
   exact h10 (fixed_gcd hz (hq ▸ hzq) h50 hgcd)
 
-/-- Cyclicity supplies an element of order 25. -/
-theorem witness_exists [Fintype K] (h q d : ℕ) (hq : q = 2^h)
-    (hpos : 0 < h) (hcard : Fintype.card K = q^2)
-    (hgcd : h.gcd 50 = 10) (h25 : 25 ∣ q+1) (hd : 5*d = q+1) :
-    ∃ e : K, orderOf e = 25 ∧ ∀ x : K, 1 + x^(q+1) + e*x^d + (e*x^d)^q ≠ 0 := by
+theorem exists_order_on_circle [Fintype K] {h q n : Nat} (hq : q = 2^h)
+    (hcard : Fintype.card K=q^2) (horder : n ∣ q+1) : ∃ e : K, orderOf e = n := by
   classical
   obtain ⟨g,hg⟩ := IsCyclic.exists_ofOrder_eq_natCard (α := Kˣ)
   rw [Nat.card_units,Nat.card_eq_fintype_card,hcard] at hg
@@ -194,11 +192,19 @@ theorem witness_exists [Fintype K] (h q d : ℕ) (hq : q = 2^h)
     obtain ⟨r,hr⟩ := Nat.exists_eq_succ_of_ne_zero (by omega : q ≠ 0)
     rw [hr,Nat.succ_sub_one]; change (r+1)^2-1=(r+1+1)*r
     rw [show (r+1)^2=(r+1+1)*r+1 by ring, Nat.add_sub_cancel]
-  have hv : 25 ∣ orderOf g := hg ▸ hfactor ▸ dvd_mul_of_dvd_left h25 _
+  have hv : n ∣ orderOf g := hg ▸ hfactor ▸ dvd_mul_of_dvd_left horder _
   have hne : orderOf g ≠ 0 := orderOf_pos g |>.ne'
-  let e := g^(orderOf g / 25)
-  have he : orderOf (e : K) = 25 := by
+  let e := g^(orderOf g / n)
+  have he : orderOf (e : K) = n := by
     rw [orderOf_units]; exact orderOf_pow_orderOf_div hne hv
+  exact ⟨e,he⟩
+
+/-- Cyclicity supplies an element of order 25. -/
+theorem witness_exists [Fintype K] (h q d : ℕ) (hq : q = 2^h)
+    (hpos : 0 < h) (hcard : Fintype.card K = q^2)
+    (hgcd : h.gcd 50 = 10) (h25 : 25 ∣ q+1) (hd : 5*d = q+1) :
+    ∃ e : K, orderOf e = 25 ∧ ∀ x : K, 1 + x^(q+1) + e*x^d + (e*x^d)^q ≠ 0 := by
+  obtain ⟨e,he⟩ := exists_order_on_circle hq hcard h25
   exact ⟨e,he,no_roots h q d hq hpos hcard hgcd h25 hd e he⟩
 
 theorem ball_vilar_1024 :

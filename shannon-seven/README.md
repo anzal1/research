@@ -52,6 +52,16 @@ With radius one, the solver returned UNSAT for all 3,430 combinations of coordin
 
 The initial radius-two run stopped on 14 projections for coordinates three and four and on 18 projections for coordinates four and five. At a budget of 20,000 conflicts, CaDiCaL returned UNSAT on all 343 projections for each pair. Across the ten coordinate pairs, this brings the total to 1,881 radius-two solver exclusions and leaves 1,549 instances undecided. The Lean theorem above covers the one-coordinate problem.
 
-Reproduce the follow-ups with `python -B shannon-seven/search_two_coordinates.py --axes 3 4 --radius-two-budget 20000 --workers 1`, then repeat with `--axes 4 5`. A next search can free coordinates one and two, where 21 projections reached the original limit.
+Reproduce the follow-ups with `python -B shannon-seven/search_two_coordinates.py --axes 3 4 --radius-two-budget 20000 --workers 1`, then repeat with `--axes 4 5`. The subsequent run freed coordinates one and two at the same 20,000-conflict budget. All 343 radius-two projections returned UNSAT, including the previous 21 cutoffs. The running totals are now 1,902 solver exclusions and 1,528 undecided. To reproduce this step, use the same command with `--axes 1 2`.
 
 To repeat the constructive search, install `python-sat==1.9.dev25` in a Python environment and run `python -B shannon-seven/search_two_coordinates.py --workers 1` from the repository root. The search tries 1,200 conflicts per radius-one instance and 300 per radius-two instance. CaDiCaL’s model order and implementation can affect the cutoff counts.
+
+## Replacing several whole words
+
+The fresh exchange search asks whether deleting up to five words of the exact appendix code can make room for one more word overall. For every outside word, its blockers are the seed words confusable with it. All 16,807 words have a blocker. An improving exchange with the fewest deletions removes exactly the union of its added words’ blockers. That union is connected through shared blockers. If it had several components, one component alone would gain more words than it removed, as every added word belongs to exactly one component.
+
+The program constructs every connected union within the size bound, then checks for a mutually distinguishable set of one more word than the union size. It tested 8, 244, 1,984, 12,387 and 87,291 connected unions at sizes one through five respectively. None gave 368 words. This finite Python search concerns changing whole words of one specific code. The existing Lean theorem concerns a different operation, reassigning a single coordinate. Polak and Schrijver already reported the three-deletion exclusion. A July 2026 public experiment covers five deletions, and a November report covers fifteen. Our five-deletion result independently reproduces a known bound. The global target remains open. [Original paper, §3](https://arxiv.org/pdf/1808.07438) · [Five-deletion experiment](https://www.gokhanmergen.com/information-theory-problems/problems/shannon-capacity-c7.html) · [Fifteen-deletion report](https://einsteinarena.com/problems/shannon-capacity-c7-5/threads/262)
+
+```sh
+python3 -B shannon-seven/search_exchanges.py --removed 5
+```

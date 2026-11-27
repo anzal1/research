@@ -67,7 +67,7 @@ jobs:
 
   lean-qutrit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: lean-qutrit
@@ -80,6 +80,8 @@ jobs:
           elan toolchain install "$(cat lean-toolchain)"
       - name: Fetch the locked mathlib build cache
         run: lake exe cache get $(awk '/^import Mathlib/{print $2}' Qutrit/Basic.lean Qmds/*.lean Shannon/*.lean Euler/*.lean)
+      - name: Kernel-check the order-29 certificate
+        run: LEAN_NUM_THREADS=1 lake build Qmds.Order29Data
       - name: Build and audit the final theorems
         run: |
           for file in Shannon/Cores/*.lean; do
@@ -101,6 +103,8 @@ jobs:
             Qmds.Order25.ball_vilar_1024
             Qmds.FullLength.full_length_family
             Qmds.FullLength.full_length_1024
+            Qmds.Order29.full_length_family
+            Qmds.Order29.full_length_16384
           )
           for theorem in "${theorems[@]}"; do
             grep -Fx "'$theorem' depends on axioms: [propext, Classical.choice, Quot.sound]" qmds-axioms.txt
@@ -117,6 +121,12 @@ jobs:
           grep -Fx "'EulerSixth.double_pair_sieve' depends on axioms: [propext, Classical.choice, Quot.sound]" euler-axioms.txt
           grep -Fx "'EulerSixth.double_pair_bound' depends on axioms: [propext, Classical.choice, Quot.sound]" euler-axioms.txt
           grep -Fx "'EulerSixth.triple_pair_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]" euler-axioms.txt
+      - name: Replay the three research searches and cross-check the order-29 construction
+        run: |
+          python3 -B ../harness/run.py search
+          python3 -B Qmds/search_rays.py --check-file Qmds/Order29Data.lean
+          python3 -B Qmds/check_order29.py
+          python3 -B ../harness/run.py verify --problem shannon --problem euler
       - name: Evaluate the order-25 witness over the entire field
         run: python3 -B Qmds/check_order25.py
       - name: Replay the two-term finite-field search
