@@ -2,43 +2,35 @@
 
 ## Opening post
 
-my dot joined the theorem party. you get the eraser. ●
+Page 106 of Ricard Vilar’s PhD thesis leaves a quantum coding question open.
 
-I turn a note into 1,048,577 numbered clues. You wipe out all but 1,023. You pick which ones survive.
+For one case, my dot found the coefficient 0xc2073.
 
-Hand me those scraps and I can read the whole note. Want to see how? Erase a dot.
+One zero would kill the construction. We checked all 1,048,576 inputs. Zero roots.
+
+Lean checked the recipe for infinitely many sizes.
 
 ## Reply 1
 
-Three dots on a straight line. The left one is at height 2, the right one at 6. Rub out the dot halfway across. How high was it?
-
-Four. The two dots you kept still fix the whole line. Our note lives in a more complicated curve. Any 1,023 numbered clues pin it down.
+Those five hex digits are a setting for the encoder. Ball and Vilar needed a formula that never hits zero. At q = 1,024, ours passes that test everywhere. The attached card gives the exact formula so you can try to break it yourself. https://arxiv.org/abs/2106.10180
 
 ## Reply 2
 
-Now imagine trying to send a quantum message. You can photocopy a paper note for safekeeping. Physics won’t let you make a perfect spare copy of an unknown quantum message.
-
-So you spread the information across many carriers. Losing some of them can leave the message intact.
+What do you get? A design for sending quantum information across 1,048,577 carriers. Any 1,023 can go missing and the message survives if the receiver knows which ones vanished. For the amount of information it carries, that’s the best guarantee physics allows.
 
 ## Reply 3
 
-The missing-dot trick is old. Ball and Vilar asked whether this particular code design could also obey the extra rules of quantum error correction at certain sizes.
-
-We found a recipe for infinitely many sizes they left open. Lean, a program that checks math proofs, verified it.
-
-## Reply 4
-
-Picture a receiver that knows which signals never arrived. With our first quantum code, any 1,023 of its 1,048,577 signals can vanish and the receiver can still recover the message.
-
-That’s the most losses a code of this size can guarantee while carrying this much information.
+Lean checked the classical code used to build the quantum one. The theorem covers q = 2^h for h = 10, 30, 70 or 90 modulo 100. Other even exponents remain open in the literature we checked. If you know an earlier construction with these parameters, I’d like to read it.
 
 ## Image alt text
 
-**Opening image.** Three evenly spaced pencil marks lie on a straight line. The left mark is at height 2 and the right mark is at 6. An eraser covers the middle mark. Its height must be 4 because the surviving dots determine the line. In the classical code, any 1,023 numbered clues out of 1,048,577 determine the original note.
+**Proof card for the opening post.** Vilar's 2025 thesis lists an open existence question. For the q = 1,024 case, the coefficient is 0xc2073 in the specified binary field basis. The card gives the polynomial, the field and the exhaustive check: 1,048,576 inputs, zero roots. Lean verifies the code construction for four infinite classes of exponents.
 
-**Quantum image.** An illustrated strip of numbered signal slots has two flagged gaps. It illustrates how a receiver can know which signals went missing. The first quantum code can recover from any 1,023 missing carriers at known positions. The underlying construction works for infinitely many of the sizes in Ball and Vilar’s question.
+**Optional introductory diagrams.** The eraser puzzle shows how two dots determine a straight line. The quantum-message illustration shows flagged gaps at known locations.
 
 ## Evidence for the author
+
+For the opening, use the coefficient image. The literal integer encodes a field element in the basis given on the card. The infinite theorem chooses an order-25 element at each size. The five digits identify the concrete first example only. The proof and checker are in the local research branch. The linked Ball–Vilar paper is the source of the question. [Thesis, p. 106](https://upcommons.upc.edu/server/api/core/bitstreams/3f9b47cc-9a24-4fd3-90a3-dd30e610a94c/content#page=107) · [Construction](../README.md) · [First-case checker](../check_order25.py)
 
 The straight line is a toy example. In the classical code, the message is a list of 1,023 coefficients. Each numbered clue is a scaled value of its polynomial, except for one special clue that gives the top coefficient. The receiver knows the clue numbers and scales. Any 1,023 intact clues uniquely determine the coefficient list. [Encoder and recovery theorem](../FullLength.lean)
 
