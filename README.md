@@ -16,6 +16,8 @@ Every result here was verified independently before it was published, and each f
 
 [Five-symbol codes on the seven-cycle](shannon-seven/) proves that reassigning one coordinate in every word of the published 367-word code cannot make room for a 368th word. Lean and an independent Python checker cover all 12,005 choices of coordinate and extra projection.
 
+[Five sixth powers with two repeated pairs](euler-sixth/) proves in Lean that three copies of one positive sixth power and two copies of another can never sum to a sixth power. For `a^6 + 2b^6 + 2c^6 = z^6`, the repeated bases must be divisible by 42 and the right-hand base must satisfy `z ≥ 117649`.
+
 ## Negative results
 
 | Search | Result |
