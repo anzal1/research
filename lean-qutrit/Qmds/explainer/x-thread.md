@@ -2,41 +2,47 @@
 
 ## Opening post
 
-my dot joined the theorem party. ●
+my dot joined the theorem party. you get the eraser. ●
 
-I’ll encode a message in 1,048,577 symbols. You pick 1,047,554 to erase.
+I turn a note into 1,048,577 numbered clues. You wipe out all but 1,023. You pick which ones survive.
 
-I can recover the whole classical message from the 1,023 you left. Here’s the quantum coding question hiding in that trick.
+Hand me those scraps and I can read the whole note. Want to see how? Erase a dot.
 
 ## Reply 1
 
-Try it with three numbers. I write 4, 7 and their sum, 11. Cover any one and the other two give it back.
+Three dots on a straight line. The left one is at height 2, the right one at 6. Rub out the dot halfway across. How high was it?
 
-Reed–Solomon codes do this with polynomials. Any 1,023 surviving symbols, together with their positions, pin down the polynomial carrying our message.
+Four. The two dots you kept still fix the whole line. Our note lives in a more complicated curve. Any 1,023 numbered clues pin it down.
 
 ## Reply 2
 
-The recovery trick is classic. The hard part was making the code obey an extra symmetry called Hermitian self-orthogonality. It lets you build a quantum error-correcting code.
+Now imagine trying to send a quantum message. You can photocopy a paper note for safekeeping. Physics won’t let you make a perfect spare copy of an unknown quantum message.
 
-We found a construction for infinitely many cases Ball and Vilar left open. https://arxiv.org/abs/2106.10180
+So you spread the information across many carriers. Losing some of them can leave the message intact.
 
 ## Reply 3
 
-The first quantum code stores 1,046,531 quantum symbols in 1,048,577 systems with 1,024 levels each. Lose any 1,023 systems and it can recover the quantum information if you know which ones vanished.
+The missing-dot trick is old. Ball and Vilar asked whether this particular code design could also obey the extra rules of quantum error correction at certain sizes.
 
-That reaches the theoretical limit for this length and message size.
+We found a recipe for infinitely many sizes they left open. Lean, a program that checks math proofs, verified it.
 
 ## Reply 4
 
-Lean checked the classical construction for every q = 2^h with h = 10, 30, 70 or 90 modulo 100. At q = 1,024 we also tested the key polynomial at all 1,048,576 field elements. Zero roots.
+Picture a receiver that knows which signals never arrived. With our first quantum code, any 1,023 of its 1,048,577 signals can vanish and the receiver can still recover the message.
 
-Other even exponents remain open in the work we reviewed. Earlier references welcome.
+That’s the most losses a code of this size can guarantee while carrying this much information.
 
 ## Image alt text
 
-One construction at 1,048,577 positions gives two different guarantees. Keep any 1,023 symbols of the classical code to recover the original message. In the derived quantum code, lose any 1,023 positions and recover the encoded quantum information when the erased positions are known. The classical construction is Lean-verified for infinitely many cases of Ball and Vilar’s question.
+**Opening image.** Three evenly spaced pencil marks lie on a straight line. The left mark is at height 2 and the right mark is at 6. An eraser covers the middle mark. Its height must be 4 because the surviving dots determine the line. In the classical code, any 1,023 numbered clues out of 1,048,577 determine the original note.
+
+**Quantum image.** An illustrated strip of numbered signal slots has two flagged gaps. It illustrates how a receiver can know which signals went missing. The first quantum code can recover from any 1,023 missing carriers at known positions. The underlying construction works for infinitely many of the sizes in Ball and Vilar’s question.
 
 ## Evidence for the author
+
+The straight line is a toy example. In the classical code, the message is a list of 1,023 coefficients. Each numbered clue is a scaled value of its polynomial, except for one special clue that gives the top coefficient. The receiver knows the clue numbers and scales. Any 1,023 intact clues uniquely determine the coefficient list. [Encoder and recovery theorem](../FullLength.lean)
+
+A perfect spare copy of an arbitrary unknown quantum state is impossible. The quantum code distributes the information across many systems. It is a mathematical design for handling flagged losses. [Original no-cloning paper](https://doi.org/10.1038/299802a0)
 
 Lean proves the classical encoder’s recovery guarantee and Hermitian self-orthogonality. The quantum parameters follow from the published Hermitian stabilizer construction. The quantum distance is 1,024. A code of that distance corrects 1,023 erasures at known locations, and this code meets the quantum Singleton bound. [Formal theorem](../FullLength.lean) · [Independent first-case check](../check_order25.py) · [Ball and Vilar, sections II and VII](https://arxiv.org/abs/2106.10180) · [Quantum Singleton bound and erasures](https://arxiv.org/abs/2010.07902)
 
