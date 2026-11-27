@@ -16,7 +16,7 @@ What’s the prize? Imagine sending a quantum message in 268,435,457 pieces. Any
 
 ## Reply 2
 
-Ball and Vilar left a family of sizes open in 2021. It appears again in Vilar’s 2025 thesis. Our first size here is 16,384. Lean checked the classical code behind the quantum design for four infinite groups of sizes. Other sizes remain open. https://arxiv.org/abs/2106.10180
+Grassl and Rötteler had five examples in 2015. Ball and Vilar cracked the odd exponents in 2021. Vilar still listed the larger even ones as open in 2025. Lean checked our classical code for four infinite groups of even exponents, starting at q = 16,384. https://arxiv.org/abs/2106.10180
 
 ## Reply 3
 
